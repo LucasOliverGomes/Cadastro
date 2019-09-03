@@ -3,52 +3,106 @@
     {
       "id": 1,
       "name": "Lucas de Oliveira",
-      "email": "Lucas@gmail.com"
+      "email": "Lucas@gmail.com",
+      "endereco": "Rua 1,44"
     },
     {
       "id": 2,
       "name": "Tonico",
-      "email": "tonico@gmail.com"
+      "email": "tonico@gmail.com",
+      "endereco": "Rua 2,1"
     },
     {
       "id": 3,
       "name": "Crispim",
-      "email": "Crispim@gmail.com"
+      "email": "Crispim@gmail.com",
+      "endereco": "Rua 3,41"
     },
     {
       "id": 4,
       "name": "Jao",
-      "email": "Jao@gmail.com"
+      "email": "Jao@gmail.com",
+      "endereco": "Rua 4,55"
     },
     {
       "id": 5,
       "name": "Fernanda",
-      "email": "Fernanda@gmail.com"
+      "email": "Fernanda@gmail.com",
+      "endereco": "Rua 5,12"
     },
     {
       "id": 6,
       "name": "Brenda",
-      "email": "Brenda@gmail.com"
+      "email": "Brenda@gmail.com",
+      "endereco": "Rua 6,17"
     },
     {
       "id": 7,
       "name": "Edson",
-      "email": "Edson@gmail.com"
+      "email": "Edson@gmail.com",
+      "endereco": "Rua 7,71"
     },
     {
       "id": 8,
       "name": "Polar",
-      "email": "Polar@gmail.com"
+      "email": "Polar@gmail.com",
+      "endereco": "Rua 8,72"
     },
     {
       "id": 9,
       "name": "Issas",
-      "email": "Issas@gmail.com"
+      "email": "Issas@gmail.com",
+      "endereco": "Rua 9,100"
     },
     {
       "id": 10,
       "name": "Carol",
-      "email": "Carol@gmail.com"
+      "email": "Carol@gmail.com",
+      "endereco": "Rua 10,67"
+    },
+    {
+      "name": "gui",
+      "email": "lucasudioliveira2020@gmail.com",
+      "endereco": "Rua 11,34",
+      "id": 11
+    },
+    {
+      "name": "Guilherme Araujo Silva",
+      "email": "GuilhermSilvaAraujo@gmail.com",
+      "Endereco": "rua 35, 688",
+      "id": 13
+    },
+    {
+      "name": "Guilherme Araujo Silva",
+      "email": "GuilhermeSilvaAraujo@gmail.com",
+      "endereco": "Rua 70, 427",
+      "id": 14
+    },
+    {
+      "name": "Crispim Luiz",
+      "email": "crisCris@gmail.com",
+      "endereco": "Rua 37, 4856",
+      "id": 15
+    }
+  ],
+  "produto": [
+    {
+      "id": 1,
+      "produto": "Bala",
+      "quantidade": "1",
+      "valor": "0.50"
+    },
+    {
+      "produto": "arroz",
+      "quantidade": "2",
+      "valor": "10.00",
+      "id": 2
+    },
+    {
+      "produto": "fff",
+      "quantidade": "2",
+      "valor": "55",
+      "id": 3
     }
   ]
 }
