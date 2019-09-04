@@ -3,20 +3,20 @@ import Main from '../template/Main';
 import axios from 'axios';
 
 const heardProps = {
-  icon: 'users text-danger',
+  icon: 'login-hunt',
   title: 'Login',
-  subtitle: 'Acesse o sistema!'
+  subtitle: 'Cadastro: Incluir, Lista, Alterar e Excluir!'
 };
 
 //Localizando nosso banco
-const baseUrl = 'http://localhost:3001/Login';
+const baseUrl = 'http://localhost:3001/produto';
 //Estado inicial - Quando sobe a aplicação
 const inicialState = {
-  Login: { cpf: '', senha: '' },
+  login: { produto: '', quantidade: '', valor: '' },
   list: []
 };
 
-export default class Home extends Component {
+export default class Login extends Component {
   state = { ...inicialState };
 
   //Será chamado antes do componente na tela
@@ -28,41 +28,41 @@ export default class Home extends Component {
   }
 
   clear() {
-    this.setState({ Login: inicialState.Login });
+    this.setState({ user: inicialState.user });
   }
   //Para incluir e alterar
   save() {
-    const Login = this.state.Login;
-    const method = Login.id ? 'put' : 'post';
+    const login = this.state.produto;
+    const method = login.id ? 'put' : 'post';
     /*Se id for verdadeiro (existe um id, faça um put),
-            senao um post */
-    const url = Login.id ? `${baseUrl}/${Login.id}` : baseUrl;
+        senao um post */
+    const url = login.id ? `${baseUrl}/${login.id}` : baseUrl;
     //Se existe um id atualiza a informação senão baseUrl cria mais um id
-    axios[method](url, Login).then(resp => {
+    axios[method](url, login).then(resp => {
       //getUpdateLIst será criada
       const list = this.getUpdateList(resp.data);
-      this.setState({ Login: inicialState.Login, list });
+      this.setState({ login: inicialState.login, list });
     });
   }
   //Atualizando a lista
-  getUpdateList(Login) {
+  getUpdateList(login) {
     //Cria uma nova lista a partir do filter
     //u => cria uma lista a separando o id que passou
     //Unshift coloca esse id na primeira posição do array
     //return list atualiza a linha 35 que atualiza o estado.
-    const list = this.state.list.filter(u => u.id !== Login.id);
-    list.unshift(Login);
+    const list = this.state.list.filter(u => u.id !== login.id);
+    list.unshift(login);
     return list;
   }
 
   updateField(event) {
     //user será o clone (ou recebe o valor) do estado user
     //clonamos para não alterar o objeto direatamente
-    const Login = { ...this.state.Login };
+    const login = { ...this.state.login };
     //seta o que está em input e virá value
-    Login[event.target.name] = event.target.value;
+    login[event.target.name] = event.target.value;
     //set insere
-    this.setState({ Login });
+    this.setState({ login });
   }
   //Jsx para renderizar o formulário.
   renderForm() {
@@ -70,39 +70,51 @@ export default class Home extends Component {
       <div className="form">
         <div className="col-12 col-md-6">
           <div className="form-group">
-            <label>Cpf</label>
+            <label>Produto</label>
             <input
               type="text"
               className="form-control"
-              name="cpf"
-              value={this.state.Login.cpf}
+              name="produto"
+              value={this.state.produto.name}
               onChange={e => this.updateField(e)}
-              placeholder="Digite Seu cpf"
+              placeholder="Nome produto"
             />
           </div>
         </div>
         <div className="col-12 col-md-6">
           <div className="form-group">
-            <label>Senha</label>
+            <label>Quantidade</label>
             <input
               type="text"
               className="form-control"
-              name="senha"
-              value={this.state.Login.senha}
+              name="quantidade"
+              value={this.state.produto.email}
               onChange={e => this.updateField(e)}
-              placeholder="Digite sua senha"
+              placeholder="Quantidade"
             />
           </div>
         </div>
-
+        <div className="adress">
+          <div className="col-12 col-md-6">
+            <div className="form-group">
+              <label>Valor</label>
+              <input
+                type="integer"
+                className="form-control"
+                name="valor"
+                value={this.state.produto.endereco}
+                onChange={e => this.updateField(e)}
+                placeholder="Valor unitário"
+              />
+            </div>
+          </div>
+        </div>
         <hr />
         <div className="row">
           <div className="col-12 d-flex justify-content-end">
-            <a href="/http://localhost:3000/User#/user">
-              <button className="btn btn-primary" onClick={e => this.save(e)}>
-                Acessar
-              </button>
-            </a>
+            <button className="btn btn-primary" onClick={e => this.save(e)}>
+              salvar
+            </button>
             <button className="btn btn-secundary ml-2" onClick={e => this.clear(e)}>
               cancelar
             </button>
@@ -113,14 +125,14 @@ export default class Home extends Component {
   }
 
   //Atualizar o estado do objeto
-  load(Login) {
-    this.setState({ Login });
+  load(login) {
+    this.setState({ login });
   }
 
-  remove(Login) {
+  remove(login) {
     //Deleta na base então repasa a lista atualizando
-    axios.delete(`${baseUrl}/${Login.id}`).then(resp => {
-      const list = this.state.list.filter(u => u !== Login);
+    axios.delete(`${baseUrl}/${login.id}`).then(resp => {
+      const list = this.state.list.filter(u => u !== login);
       this.setState({ list });
     });
   }
@@ -128,24 +140,31 @@ export default class Home extends Component {
   renderTable() {
     return (
       <table className="table mt-4">
-        <thead></thead>
+        <thead>
+          <th>ID</th>
+          <th>Nome do Produto</th>
+          <th>Quantidade</th>
+          <th>Valor(R$)</th>
+          <th>Ações</th>
+        </thead>
         <tbody>{this.renderRows()}</tbody>
       </table>
     );
   }
   renderRows() {
-    return this.state.list.map(Login => {
+    return this.state.list.map(produto => {
       return (
-        <tr key={Login.id}>
-          <td>{Login.id}</td>
-          <td>{Login.cpf}</td>
-          <td>{Login.senha}</td>
+        <tr key={produto.id}>
+          <td>{produto.id}</td>
+          <td>{produto.produto}</td>
+          <td>{produto.quantidade}</td>
+          <td>{produto.valor}</td>
           <td>
             <button className="btn btn=warning">
-              <i className="fa fa-pencil" onClick={() => this.load(Login)} />
+              <i className="fa fa-pencil" onClick={() => this.load(produto)} />
             </button>
             <button className="btn btn-danger ml-2">
-              <i className="fa fa-trash" onClick={() => this.remove(Login)} />
+              <i className="fa fa-trash" onClick={() => this.remove(produto)} />
             </button>
           </td>
         </tr>

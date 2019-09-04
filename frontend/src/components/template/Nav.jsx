@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 export default props => (
   <aside className="menu-area">
     <nav className="menu">
-      <Link to="/">
+      <Link to="/Home">
         <i className="fa fa-home" />
         Início
       </Link>

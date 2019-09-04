@@ -83,6 +83,12 @@
       "email": "crisCris@gmail.com",
       "endereco": "Rua 37, 4856",
       "id": 15
+    },
+    {
+      "name": "Paulo Gostoso",
+      "email": "meupau@dlç.com",
+      "endereco": "Casa do caralho",
+      "id": 16
     }
   ],
   "produto": [
