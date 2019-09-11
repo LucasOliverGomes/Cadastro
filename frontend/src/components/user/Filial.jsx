@@ -3,20 +3,20 @@ import Main from '../template/Main';
 import axios from 'axios';
 
 const heardProps = {
-  icon: 'users text-danger',
-  title: 'Usuários',
-  subtitle: 'Cadastro: Incluir, Lista, Alterar e Excluir!'
+  icon: 'shopping-cart text-danger',
+  title: 'Filial',
+  subtitle: 'Filial'
 };
 
 //Localizando nosso banco
-const baseUrl = 'http://localhost:3001/user';
+const baseUrl = 'http://localhost:3001/filial';
 //Estado inicial - Quando sobe a aplicação
 const inicialState = {
-  user: { name: '', email: '' },
+  filial: { nomeFilial: '', local: '', dataFundacao: '' },
   list: []
 };
 
-export default class UserCrud extends Component {
+export default class VendasCrud extends Component {
   state = { ...inicialState };
 
   //Será chamado antes do componente na tela
@@ -32,37 +32,37 @@ export default class UserCrud extends Component {
   }
   //Para incluir e alterar
   save() {
-    const user = this.state.user;
-    const method = user.id ? 'put' : 'post';
+    const filial = this.state.filial;
+    const method = filial.id ? 'put' : 'post';
     /*Se id for verdadeiro (existe um id, faça um put),
         senao um post */
-    const url = user.id ? `${baseUrl}/${user.id}` : baseUrl;
+    const url = filial.id ? `${baseUrl}/${filial.id}` : baseUrl;
     //Se existe um id atualiza a informação senão baseUrl cria mais um id
-    axios[method](url, user).then(resp => {
+    axios[method](url, filial).then(resp => {
       //getUpdateLIst será criada
       const list = this.getUpdateList(resp.data);
-      this.setState({ user: inicialState.user, list });
+      this.setState({ filial: inicialState.filial, list });
     });
   }
   //Atualizando a lista
-  getUpdateList(user) {
+  getUpdateList(filial) {
     //Cria uma nova lista a partir do filter
     //u => cria uma lista a separando o id que passou
     //Unshift coloca esse id na primeira posição do array
     //return list atualiza a linha 35 que atualiza o estado.
-    const list = this.state.list.filter(u => u.id !== user.id);
-    list.unshift(user);
+    const list = this.state.list.filter(u => u.id !== filial.id);
+    list.unshift(filial);
     return list;
   }
 
   updateField(event) {
     //user será o clone (ou recebe o valor) do estado user
     //clonamos para não alterar o objeto direatamente
-    const user = { ...this.state.user };
+    const filial = { ...this.state.filial };
     //seta o que está em input e virá value
-    user[event.target.name] = event.target.value;
+    filial[event.target.name] = event.target.value;
     //set insere
-    this.setState({ user });
+    this.setState({ filial });
   }
   //Jsx para renderizar o formulário.
   renderForm() {
@@ -70,41 +70,41 @@ export default class UserCrud extends Component {
       <div className="form">
         <div className="col-12 col-md-6">
           <div className="form-group">
-            <label>Nome</label>
+            <label>Filial</label>
             <input
               type="text"
               className="form-control"
-              name="name"
-              value={this.state.user.name}
+              name="nomeFilial"
+              value={this.state.filial.nomeFilial}
               onChange={e => this.updateField(e)}
-              placeholder="Digite Seu Nome"
+              placeholder="Nome da Filial"
             />
           </div>
         </div>
         <div className="col-12 col-md-6">
           <div className="form-group">
-            <label>E-mail</label>
+            <label>Local</label>
             <input
-              type="email"
+              type="text"
               className="form-control"
-              name="email"
-              value={this.state.user.email}
+              name="local"
+              value={this.state.filial.local}
               onChange={e => this.updateField(e)}
-              placeholder="Digite seu Email"
+              placeholder="Local"
             />
           </div>
         </div>
-        <div className="adress">
+        <div className="form">
           <div className="col-12 col-md-6">
             <div className="form-group">
-              <label>Endereco</label>
+              <label>Data da Fundação</label>
               <input
-                type="text"
+                type="date"
                 className="form-control"
-                name="endereco"
-                value={this.state.user.endereco}
+                name="dataFundacao"
+                value={this.state.filial.dataFundacap}
                 onChange={e => this.updateField(e)}
-                placeholder="Digite seu Enredeço"
+                placeholder="Data da Fundação"
               />
             </div>
           </div>
@@ -125,14 +125,14 @@ export default class UserCrud extends Component {
   }
 
   //Atualizar o estado do objeto
-  load(user) {
-    this.setState({ user });
+  load(filial) {
+    this.setState({ filial });
   }
 
-  remove(user) {
+  remove(filial) {
     //Deleta na base então repasa a lista atualizando
-    axios.delete(`${baseUrl}/${user.id}`).then(resp => {
-      const list = this.state.list.filter(u => u !== user);
+    axios.delete(`${baseUrl}/${filial.id}`).then(resp => {
+      const list = this.state.list.filter(u => u !== filial);
       this.setState({ list });
     });
   }
@@ -142,9 +142,9 @@ export default class UserCrud extends Component {
       <table className="table mt-4">
         <thead>
           <th>ID</th>
-          <th>Nome</th>
-          <th>E-mail</th>
-          <th>Endereço</th>
+          <th>Nome da Filial</th>
+          <th>Local</th>
+          <th>Data Fundação</th>
           <th>Ações</th>
         </thead>
         <tbody>{this.renderRows()}</tbody>
@@ -152,19 +152,20 @@ export default class UserCrud extends Component {
     );
   }
   renderRows() {
-    return this.state.list.map(user => {
+    return this.state.list.map(filial => {
       return (
-        <tr key={user.id}>
-          <td>{user.id}</td>
-          <td>{user.name}</td>
-          <td>{user.email}</td>
-          <td>{user.endereco}</td>
+        <tr key={filial.id}>
+          <td>{filial.id}</td>
+          <td>{filial.nomeFilial}</td>
+          <td>{filial.nomeFilial}</td>
+          <td>{filial.local}</td>
+          <td>{filial.dataFundacao}</td>
           <td>
             <button className="btn btn=warning">
-              <i className="fa fa-pencil" onClick={() => this.load(user)} />
+              <i className="fa fa-pencil" onClick={() => this.load(filial)} />
             </button>
             <button className="btn btn-danger ml-2">
-              <i className="fa fa-trash" onClick={() => this.remove(user)} />
+              <i className="fa fa-trash" onClick={() => this.remove(filial)} />
             </button>
           </td>
         </tr>

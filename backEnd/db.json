@@ -83,12 +83,6 @@
       "email": "crisCris@gmail.com",
       "endereco": "Rua 37, 4856",
       "id": 15
-    },
-    {
-      "name": "Paulo Gostoso",
-      "email": "meupau@dlç.com",
-      "endereco": "Casa do caralho",
-      "id": 16
     }
   ],
   "produto": [
@@ -109,6 +103,121 @@
       "quantidade": "2",
       "valor": "55",
       "id": 3
+    },
+    {
+      "produto": "jj",
+      "quantidade": "jj",
+      "valor": "jj",
+      "id": 4
+    }
+  ],
+  "vendas": [
+    {
+      "nomeFornecedor": "11212",
+      "dataFundacao": "275760-04-05",
+      "nomeFantasia": "54545",
+      "socio1Nome": "454",
+      "socio2Nome": "00000",
+      "cnpj": "545",
+      "id": 1
+    },
+    {
+      "nomeCliente": "gg'gg",
+      "produto": "ggg",
+      "quantidade": "",
+      "dataVendas": "0004-04-05",
+      "valor": "45",
+      "qtdProduto": "gg",
+      "id": 2
+    }
+  ],
+  "fornecedor": [
+    {
+      "id": 1,
+      "nomeFornecedor": "crispm",
+      "nomeFantasia": "cris",
+      "dataFundacao": "22/02/2019",
+      "socio1Nome": "juarez",
+      "socio2Nome": "fabio",
+      "cnpj": "12151538"
+    }
+  ],
+  "empresa": [
+    {
+      "id": 1,
+      "nomeEmpresa": "",
+      "local": "",
+      "nomeFantasia": "",
+      "dataFundacao": ""
+    },
+    {
+      "nomeEmpresa": "yuuygu",
+      "local": "uguyg",
+      "nomeFantasia": "yguhgj",
+      "date": "",
+      "dataFundacao": "0111-03-01",
+      "id": 2
+    }
+  ],
+  "filial": [
+    {
+      "id": 1,
+      "nomeFilial": "",
+      "local": "",
+      "dataFundacao": ""
+    },
+    {
+      "nomeFilial": "hgkhgkhg",
+      "local": "hgh",
+      "dataFundacao": "0444-11-11",
+      "id": 2
+    }
+  ],
+  "estoque": [
+    {
+      "id": 1,
+      "filial": "",
+      "produto": "",
+      "quantidadeProdutos": ""
+    },
+    {
+      "filial": "odhhj",
+      "produto": "jhkljh",
+      "quantidadeProdutos": "k3333",
+      "id": 2
+    }
+  ],
+  "funcionarios": [
+    {
+      "name": "khgbkjh",
+      "email": "khkjh",
+      "telefone": "kjhkjh",
+      "cpf": "k687968976",
+      "estado": "kjik",
+      "cidade": "hkj8888",
+      "endereco": "000000",
+      "id": 2
+    },
+    {
+      "name": "jlkjl",
+      "email": "jljlkj",
+      "cargo": "lkjlkjlk",
+      "salario": "jljljlk",
+      "dataContratacao": "0789-08-09",
+      "telefone": "0000001",
+      "id": 3
+    }
+  ],
+  "telemarketing": [
+    {
+      "id": 1,
+      "name": "",
+      "telefone": "",
+      "data": "",
+      "horadaVenda": "",
+      "protocolo": "",
+      "cidade": "",
+      "motivo": ""
     }
   ]
 }

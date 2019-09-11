@@ -3,20 +3,20 @@ import Main from '../template/Main';
 import axios from 'axios';
 
 const heardProps = {
-  icon: 'users text-danger',
-  title: 'Usuários',
-  subtitle: 'Cadastro: Incluir, Lista, Alterar e Excluir!'
+  icon: 'shopping-cart text-danger',
+  title: 'Empresa',
+  subtitle: 'Empresa'
 };
 
 //Localizando nosso banco
-const baseUrl = 'http://localhost:3001/user';
+const baseUrl = 'http://localhost:3001/empresa';
 //Estado inicial - Quando sobe a aplicação
 const inicialState = {
-  user: { name: '', email: '' },
+  empresa: { nomeEmpresa: '', local: '', nomeFantasia: '', date: '' },
   list: []
 };
 
-export default class UserCrud extends Component {
+export default class VendasCrud extends Component {
   state = { ...inicialState };
 
   //Será chamado antes do componente na tela
@@ -32,37 +32,37 @@ export default class UserCrud extends Component {
   }
   //Para incluir e alterar
   save() {
-    const user = this.state.user;
-    const method = user.id ? 'put' : 'post';
+    const empresa = this.state.empresa;
+    const method = empresa.id ? 'put' : 'post';
     /*Se id for verdadeiro (existe um id, faça um put),
         senao um post */
-    const url = user.id ? `${baseUrl}/${user.id}` : baseUrl;
+    const url = empresa.id ? `${baseUrl}/${empresa.id}` : baseUrl;
     //Se existe um id atualiza a informação senão baseUrl cria mais um id
-    axios[method](url, user).then(resp => {
+    axios[method](url, empresa).then(resp => {
       //getUpdateLIst será criada
       const list = this.getUpdateList(resp.data);
-      this.setState({ user: inicialState.user, list });
+      this.setState({ empresa: inicialState.empresa, list });
     });
   }
   //Atualizando a lista
-  getUpdateList(user) {
+  getUpdateList(empresa) {
     //Cria uma nova lista a partir do filter
     //u => cria uma lista a separando o id que passou
     //Unshift coloca esse id na primeira posição do array
     //return list atualiza a linha 35 que atualiza o estado.
-    const list = this.state.list.filter(u => u.id !== user.id);
-    list.unshift(user);
+    const list = this.state.list.filter(u => u.id !== empresa.id);
+    list.unshift(empresa);
     return list;
   }
 
   updateField(event) {
     //user será o clone (ou recebe o valor) do estado user
     //clonamos para não alterar o objeto direatamente
-    const user = { ...this.state.user };
+    const empresa = { ...this.state.empresa };
     //seta o que está em input e virá value
-    user[event.target.name] = event.target.value;
+    empresa[event.target.name] = event.target.value;
     //set insere
-    this.setState({ user });
+    this.setState({ empresa });
   }
   //Jsx para renderizar o formulário.
   renderForm() {
@@ -70,41 +70,56 @@ export default class UserCrud extends Component {
       <div className="form">
         <div className="col-12 col-md-6">
           <div className="form-group">
-            <label>Nome</label>
+            <label>Nome da Empresa</label>
             <input
               type="text"
               className="form-control"
-              name="name"
-              value={this.state.user.name}
+              name="nomeEmpresa"
+              value={this.state.empresa.nomeEmpresa}
               onChange={e => this.updateField(e)}
-              placeholder="Digite Seu Nome"
+              placeholder="Nome da empresa"
             />
           </div>
         </div>
         <div className="col-12 col-md-6">
           <div className="form-group">
-            <label>E-mail</label>
+            <label>Local</label>
             <input
-              type="email"
+              type="text"
               className="form-control"
-              name="email"
-              value={this.state.user.email}
+              name="local"
+              value={this.state.empresa.local}
               onChange={e => this.updateField(e)}
-              placeholder="Digite seu Email"
+              placeholder="local"
             />
           </div>
         </div>
-        <div className="adress">
+        <div className="form">
           <div className="col-12 col-md-6">
             <div className="form-group">
-              <label>Endereco</label>
+              <label>Nome da Fanstasia</label>
               <input
                 type="text"
                 className="form-control"
-                name="endereco"
-                value={this.state.user.endereco}
+                name="nomeFantasia"
+                value={this.state.empresa.nomeFantasia}
                 onChange={e => this.updateField(e)}
-                placeholder="Digite seu Enredeço"
+                placeholder="Nome Fantasia da Empresa"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="dataVenda">
+          <div className="col-12 col-md-6">
+            <div className="form-group">
+              <label>Data da Fundação</label>
+              <input
+                type="date"
+                className="form-control"
+                name="dataFundacao"
+                value={this.state.empresa.dataFundacao}
+                onChange={e => this.updateField(e)}
+                placeholder="DD/MM/AA"
               />
             </div>
           </div>
@@ -125,14 +140,14 @@ export default class UserCrud extends Component {
   }
 
   //Atualizar o estado do objeto
-  load(user) {
-    this.setState({ user });
+  load(empresa) {
+    this.setState({ empresa });
   }
 
-  remove(user) {
+  remove(empresa) {
     //Deleta na base então repasa a lista atualizando
-    axios.delete(`${baseUrl}/${user.id}`).then(resp => {
-      const list = this.state.list.filter(u => u !== user);
+    axios.delete(`${baseUrl}/${empresa.id}`).then(resp => {
+      const list = this.state.list.filter(u => u !== empresa);
       this.setState({ list });
     });
   }
@@ -142,9 +157,10 @@ export default class UserCrud extends Component {
       <table className="table mt-4">
         <thead>
           <th>ID</th>
-          <th>Nome</th>
-          <th>E-mail</th>
-          <th>Endereço</th>
+          <th>Nome da Empresa</th>
+          <th>Local</th>
+          <th>Nome Fantasia</th>
+          <th>Data da Fundação</th>
           <th>Ações</th>
         </thead>
         <tbody>{this.renderRows()}</tbody>
@@ -152,19 +168,20 @@ export default class UserCrud extends Component {
     );
   }
   renderRows() {
-    return this.state.list.map(user => {
+    return this.state.list.map(empresa => {
       return (
-        <tr key={user.id}>
-          <td>{user.id}</td>
-          <td>{user.name}</td>
-          <td>{user.email}</td>
-          <td>{user.endereco}</td>
+        <tr key={empresa.id}>
+          <td>{empresa.id}</td>
+          <td>{empresa.nomeEmpresa}</td>
+          <td>{empresa.local}</td>
+          <td>{empresa.nomeFantasia}</td>
+          <td>{empresa.dataFundacao}</td>
           <td>
             <button className="btn btn=warning">
-              <i className="fa fa-pencil" onClick={() => this.load(user)} />
+              <i className="fa fa-pencil" onClick={() => this.load(empresa)} />
             </button>
             <button className="btn btn-danger ml-2">
-              <i className="fa fa-trash" onClick={() => this.remove(user)} />
+              <i className="fa fa-trash" onClick={() => this.remove(empresa)} />
             </button>
           </td>
         </tr>
